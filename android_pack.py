@@ -162,13 +162,14 @@ class GradlePackProcessListener(ProcessListener):
 			print "\nandroid channels pack cost total time :	" + str(int(self.curTime)) +'s , ' + str(1) + ' apks'
 			
 			#资源混淆
-			func_andResGuard(workSpace  + '/build/outputs/apk/'+apkName)
+			func_andResGuard(workSpace  + '/app/build/outputs/apk/'+apkName)
 			
 		#所有渠道资源混淆release版
 		elif type == 3:
 		    #先资源混淆在多渠道打包
+
 			apkName =  apkPrefix + '_inner_' + version + '.apk'
-			func_andResGuard(workSpace  + '/build/outputs/apk/'+apkName,True)
+			func_andResGuard(workSpace  + '/app/build/outputs/apk/'+apkName,True)
 
 #andResGuard进程监听器		
 class AndResGuardProcessListener(ProcessListener):
