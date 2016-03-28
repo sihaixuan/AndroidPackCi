@@ -1,4 +1,4 @@
-package com.sihaixuan.androidpackci;
+package com.sihaixuan.androidpackci.actvivity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +8,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import com.sihaixuan.androidpackci.R;
+import com.sihaixuan.androidpackci.util.CommonUtil;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        TextView channelNameTxt = (TextView) findViewById(R.id.channelName);
+        String channleName = "channel name : " + CommonUtil.getChannelByFileName(this);
+        channelNameTxt.setText(channleName);
     }
 
     @Override

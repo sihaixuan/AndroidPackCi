@@ -15,3 +15,21 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+# support-v4
+-dontwarn android.support.v4.**
+-keep class android.support.v4.app.** { *; }
+-keep interface android.support.v4.app.** { *; }
+# support-v4
+
+# support-v7
+-dontwarn android.support.v7.**
+-keep class android.support.v7.widget.Toolbar { *; } #解决反射问题
+-keep class android.support.v7.internal.** { *; }
+-keep interface android.support.v7.internal.** { *; }
+# support-v7
+
+# android.support.design
+-keep class android.support.design.** {*;}
+# android.support.design
+

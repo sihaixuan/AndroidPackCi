@@ -1,20 +1,71 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 22
+    buildToolsVersion '22.0.1'
+
+
+    compileOptions.encoding = "UTF-8"
 
     defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 19
         applicationId "com.sihaixuan.androidpackci"
-        minSdkVersion 15
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 2016028
+        versionName '1.0.0'
     }
+
+    signingConfigs {
+        myConfig {
+            storeFile file('key_store.jks')
+            storePassword 'android'
+            keyAlias 'android'
+            keyPassword 'android'
+        }
+
+        debug {
+            storeFile file('key_store.jks')
+            storePassword 'android'
+            keyAlias 'android'
+            keyPassword 'android'
+        }
+
+
+    }
+
     buildTypes {
         release {
+            signingConfig signingConfigs.myConfig
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-project.txt'
+        }
+
+    }
+
+    //apk 重命名
+    applicationVariants.all{
+        variant->
+            variant.outputs.each { output->
+                def oldFile = output.outputFile;
+                def profix = 'demo_';
+                if(variant.buildType.name.equals('release')){
+//                    println(variant.productFlavors[0].name)
+                    def releaseApkName = profix  + variant.productFlavors[0].name.replaceFirst("_","") + '_' + defaultConfig.versionName  + '.apk'
+                    output.outputFile = new File(oldFile.parent, releaseApkName)
+                }
+            }
+
+    }
+
+
+    lintOptions {
+        abortOnError false
+        disable 'InvalidPackage'
+    }
+
+    productFlavors {
+        inner {
+            manifestPlaceholders = [CHANNEL_NAME: "wsv90w47ho"]
         }
     }
 }
@@ -22,6 +73,8 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:design:23.1.1'
+    compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.android.support:design:22.2.1'
+    compile 'com.android.support:recyclerview-v7:22.2.1'
+    compile 'com.android.support:cardview-v7:22.2.1'
 }
